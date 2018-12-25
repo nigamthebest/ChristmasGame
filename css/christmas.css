@@ -1,0 +1,11 @@
+.center {
+  margin: auto;
+  width: 50%;
+  height: 20%
+  padding: 10px;
+}
+.canvas {
+  width: 60%;
+  height: 60%;
+  padding: 10px;
+}
