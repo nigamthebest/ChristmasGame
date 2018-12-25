@@ -1,6 +1,8 @@
 
 //Friend Image
-var fReady = false; 
+
+var fReady = false;
+
 var santa = new Image();
 var gift = new Image();
 var cart =  new Image();
@@ -8,9 +10,10 @@ var gameOver =  new Image();
 var giftGone = false;
 var giftCaught = false;
 var giftCollected = 0;
-var gifLost = 0;
+var giftLost = 0;
 var canvas = document.getElementById("myCanvas");
 var x = document.getElementById("myAudio");
+
 
 function playAudio() {
   x.play();
@@ -74,7 +77,7 @@ function moveGift(){
    // console.log(giftObj , cartObj)
     if(giftObj.y + dy > canvas.height-100) {
         resetGiftObj();
-        gifLost ++;
+        giftLost ++;
     }
     if(giftObj.x >= cartObj.x && giftObj.x < cartObj.x+100 && giftObj.y >= cartObj.y && giftObj.y < cartObj.y + 50){
         giftCaught = true;
@@ -87,26 +90,12 @@ function moveGift(){
 
 }
 
-function drawScoreBoard(context){
-    var bw = 400;
-    var bh = 400;
-    var p = 10;
-    var cw = bw + (p*2) + 1;
-    var ch = bh + (p*2) + 1;
-
-    for (var x = 0; x <= bw; x += 40) {
-        context.moveTo(0.5 + x + p, p);
-        context.lineTo(0.5 + x + p, bh + p);
-    }
-
-    for (var x = 0; x <= bh; x += 40) {
-        context.moveTo(p, 0.5 + x + p);
-        context.lineTo(bw + p, 0.5 + x + p);
-    }
-
-    context.strokeStyle = "black";
-    context.stroke();
-
+function drawScoreBoard(ctx){
+      ctx.font = "30px Comic Sans MS";
+      ctx.fillStyle = "red";
+      //ctx.textAlign = "center";
+      ctx.fillText("Gift Caught "+ giftCollected, (canvas.width-200), 40);
+      ctx.fillText("Gift Lost "+ giftLost, (canvas.width-205), 90);
 }
 
 
@@ -128,8 +117,10 @@ function drawCart(c) {
 }
 
 function drawGameOver(ctx) {
-   ctx.font = "50px Arial";
-   ctx.fillText("Game  Over", 10, 50);
+    ctx.font = "50px Comic Sans MS";
+    ctx.fillStyle = "red";
+    ctx.textAlign = "center";
+    ctx.fillText("Game  Over", (canvas.width)/2, (canvas.height)/2);
 }
 
 function setImage(){
@@ -137,11 +128,12 @@ function setImage(){
     var now = Date.now();
     var delta = now-then;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    if(gifLost < 3){
+    drawScoreBoard(ctx);
+    if(giftLost < 3){
         drawSanta(ctx);
         drawGift(ctx);
         drawCart(ctx);
-        drawScoreBoard(ctx);
+        //drawScoreBoard(ctx);
         moveCart(delta/1000);
         moveGift();
     }else{

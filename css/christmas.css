@@ -9,3 +9,8 @@
   height: 60%;
   padding: 10px;
 }
+td {
+  background-color: red;
+  font-size: 24px;
+  padding: 10px;
+}
